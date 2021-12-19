@@ -28,16 +28,26 @@ class BnT:
             'and then converts it to an image made only of black pixels \n'
             ' of varying opacity.', relief = 'sunken').grid(column = 0, row = 2, columnspan = 2, pady = 10)
 
+        #Pick options for grayscaling
+        radbutton = tk.Frame(mnf, borderwidth=10)
+        radbutton.grid(column=0, row=3, columnspan=2)
+        self.optionpicked = tk.IntVar()
+        options = [('Grayscale default', 0),
+                   ('Grayscale without hue weighing', 1),
+                   ('No color at all', 2)]
+        tk.Label(radbutton, text='Pick how the conversion is handled').pack()
+        for optname, val in options:
+            tk.Radiobutton(radbutton, text=optname, variable=self.optionpicked, command=lambda:print(self.optionpicked.get()), value=val).pack(side=tk.LEFT)
 
         #Open File 
         tk.Button(mnf, text='Open a File',
-            command=self.select_file).grid(column=0, row=3, pady = 10, sticky='E')
+            command=self.select_file).grid(column=0, row=4, pady = 10, sticky='E')
         
-        tk.Label(mnf, textvariable = self.path_short, wraplength=260).grid(column=1, row=3, pady = 10, sticky='W')
+        tk.Label(mnf, textvariable = self.path_short, wraplength=260).grid(column=1, row=4, pady = 10, sticky='W')
 
         #Save File
-        tk.Button(mnf, text='Save', command=self.process).grid(column = 0, row = 4, pady = 10, sticky='E')
-        tk.Label(mnf, textvariable = self.status).grid(column=1, row=4, pady = 10, sticky='W')
+        tk.Button(mnf, text='Save', command=self.process).grid(column = 0, row = 5, pady = 10, sticky='E')
+        tk.Label(mnf, textvariable = self.status).grid(column=1, row=5, pady = 10, sticky='W')
 
     def select_file(self):
         filetypes = (
