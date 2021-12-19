@@ -5,7 +5,7 @@ This is a program meant to convert color or grayscale images into ones only made
 You can use this to convert scans of pencil/ink drawings into lineart useable in painting software, you can also use it to recolor pictures...
 <br/>
 Here's a preview:<br/><br/>
-Suppose I want to color it this pencil drawing by @dawning-crow <br/>
+Suppose I want to color in this pencil drawing by @dawning-crow <br/>
 <img src ="examplepictures/original by dawning crow.png"><br/><br/>
 <b>I could used the magic wand tool, or the blending options in photoshop to remove the white pixels, but you end up with this: <b/>
 | Either the threshold is too low, and the gray pixels are visible and very noticeable:| Or the threshold is too high, and you lose a lot of the lineart in the process:|
