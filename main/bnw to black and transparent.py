@@ -32,11 +32,11 @@ class BnT:
         radbutton = tk.Frame(mnf, borderwidth=10)
         radbutton.grid(column=0, row=3, columnspan=2)
         self.optionpicked = tk.IntVar()
-        options = [('Grayscale', 0),
-                   ('No color at all', 1)]
+        options = [('Grayscale as seen\n by the human eye', 0),
+                   ('Grayscale without \n correcting for the eye', 1)]
         tk.Label(radbutton, text='Pick how the conversion is handled').pack()
         for optname, val in options:
-            tk.Radiobutton(radbutton, text=optname, variable=self.optionpicked, command=lambda:self.optionpicked.set(val), value=val).pack(side=tk.LEFT)
+            tk.Radiobutton(radbutton, text=optname, variable=self.optionpicked, value=val).pack(side=tk.LEFT)
 
         #Open File 
         tk.Button(mnf, text='Open a File',
