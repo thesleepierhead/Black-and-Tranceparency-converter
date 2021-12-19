@@ -1,14 +1,9 @@
-# Black-and-Trancparency-converter
-
+# Black-and-Trancparency-converter 
+<br/>
 This is a program meant to convert color or grayscale images into ones only made of black pixels of varying transparency. 
 <br/> <br/>
 You can use this to convert scans of pencil/ink drawings into lineart useable in painting software, you can also use it to recolor pictures...
 <br/>
-<<<<<<< HEAD
-Here's a preview:<br/>
-Suppose I want to color it this pencil drawing by @dawning-crow 
-![original drawing by @dawning-crow](../examples/original by dawning crow.png)
-=======
 Here's a preview:<br/><br/>
 Suppose I want to color in this pencil drawing by @dawning-crow <br/>
 <img src ="examplepictures/original by dawning crow.png"><br/><br/>
@@ -19,5 +14,3 @@ Suppose I want to color in this pencil drawing by @dawning-crow <br/>
 <br/>
 <b>If you use this program though, you keep all the detail while still avoiding the gray pixel artefacts: <b/> <br/>
 <img src="examplepictures/using BnT converter.png"><br/>
-
->>>>>>> 4fb65d1ecbfe83bc6d2bd1e761e5cd3b7002692b
