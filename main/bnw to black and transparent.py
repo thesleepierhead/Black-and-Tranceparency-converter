@@ -32,12 +32,11 @@ class BnT:
         radbutton = tk.Frame(mnf, borderwidth=10)
         radbutton.grid(column=0, row=3, columnspan=2)
         self.optionpicked = tk.IntVar()
-        options = [('Grayscale default', 0),
-                   ('Grayscale without hue weighing', 1),
-                   ('No color at all', 2)]
+        options = [('Grayscale', 0),
+                   ('No color at all', 1)]
         tk.Label(radbutton, text='Pick how the conversion is handled').pack()
         for optname, val in options:
-            tk.Radiobutton(radbutton, text=optname, variable=self.optionpicked, command=lambda:print(self.optionpicked.get()), value=val).pack(side=tk.LEFT)
+            tk.Radiobutton(radbutton, text=optname, variable=self.optionpicked, command=lambda:self.optionpicked.set(val), value=val).pack(side=tk.LEFT)
 
         #Open File 
         tk.Button(mnf, text='Open a File',
@@ -46,7 +45,7 @@ class BnT:
         tk.Label(mnf, textvariable = self.path_short, wraplength=260).grid(column=1, row=4, pady = 10, sticky='W')
 
         #Save File
-        tk.Button(mnf, text='Save', command=self.process).grid(column = 0, row = 5, pady = 10, sticky='E')
+        tk.Button(mnf, text='Save', command=self.save).grid(column = 0, row = 5, pady = 10, sticky='E')
         tk.Label(mnf, textvariable = self.status).grid(column=1, row=5, pady = 10, sticky='W')
 
     def select_file(self):
@@ -66,23 +65,40 @@ class BnT:
         self.status.set('')
         
 
-    def process(self):
+    def save(self):
 
-        img_path = self.path.get()
+        img_path = self.path.get() #image preprocessing
         print(img_path)
         img = Image.open(img_path)
-        la = img.convert('LA')
-        datas = la.getdata()
-        newData = []
-        for item in datas:
-            newData.append((0, 255-item[0])) #pixel conversion
-        la.putdata(newData)
-        out = la.convert('RGBA')
-        
-        file = fd.asksaveasfile(mode='wb', defaultextension=".png", filetypes=(("PNG file", "*.png"),("All Files", "*.*") ))
+        img = img.convert("RGB") #flattens the transparency
+
+        if self.optionpicked.get() == 0: #depends on the radiobutton
+            out = self.greyscale(img).convert('RGBA')
+        elif self.optionpicked.get() == 1:
+            out = self.nohue(img).convert('RGBA')
+ 
+        file = fd.asksaveasfile(mode='wb', defaultextension=".png", filetypes=(("PNG file", "*.png"),("All Files", "*.*") )) #image saving
         if file:
             out.save(file)
             self.status.set("Done!")
+    
+    def greyscale(self, img): 
+        converted = img.convert('LA') #converts to LA colorspace, which is in grayscale with a transparent channel
+        datas = converted.getdata()        
+        newData = []
+        for item in datas:
+            newData.append((0, 255-item[0])) #pixel conversion
+        converted.putdata(newData)
+        return converted
+
+    def nohue(self, img):
+        converted = img.convert('RGBA')
+        datas = converted.getdata()        
+        newData = []
+        for item in datas:
+            newData.append((0,0,0,255 - max(item[0], item[1], item[2]))) #pixel conversion, removes the color channels and creates a key 
+        converted.putdata(newData)
+        return converted
 
 root = tk.Tk()
 BnT(root)
