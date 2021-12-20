@@ -73,3 +73,4 @@ This program was mostly created for me, but you could probably use it for:<br/>
 I don't have anything concrete, but I might add some stuff eventually:
 - More options for different greyscale weightings, maybe with user inputed weighting for different channels
 - Option for (some other color) and transparency, maybe several colors?
+- This could be a photoshop extension...
