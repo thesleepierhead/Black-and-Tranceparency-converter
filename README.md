@@ -5,11 +5,11 @@ This is a program meant to convert color or greyscale images into ones only made
 <br/><br/>
 
 ---
-- [Explanation](#What-does-that-mean?-What-is-this?)
-- [Technical Details](#How-does-this-work?)
+- [Explanation](#What-does-that-mean-What-is-this)
+- [Technical Details](#How-does-this-work)
     - [Concept](#Concept)
     - [Dependencies](#Dependencies)
-- [Use](#What-can-this-be-used-for?)
+- [Use](#What-can-this-be-used-for)
 - [Planned changes](#Plans-for-the-future)
 
 ---
