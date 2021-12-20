@@ -57,8 +57,7 @@ class BnT:
             ('All files', '*.*')
         )
         filepath = fd.askopenfilename(
-            title='Open a file',
-            
+            title='Open a file',            
             filetypes=filetypes)
         self.path.set(filepath)
         self.path_short.set('...' + str(self.path.get())[-35:])
@@ -71,34 +70,34 @@ class BnT:
         print(img_path)
         img = Image.open(img_path)
         img = img.convert("RGB") #flattens the transparency
+        img = img.convert('RGBA') #adds it back in
+
 
         if self.optionpicked.get() == 0: #depends on the radiobutton
-            out = self.greyscale(img).convert('RGBA')
+            out = self.greyscale(img)
         elif self.optionpicked.get() == 1:
-            out = self.nohue(img).convert('RGBA')
- 
+            out = self.nohue(img)
+        out = out.convert('RGBA')
+
         file = fd.asksaveasfile(mode='wb', defaultextension=".png", filetypes=(("PNG file", "*.png"),("All Files", "*.*") )) #image saving
         if file:
             out.save(file)
             self.status.set("Done!")
     
     def greyscale(self, img): 
-        converted = img.convert('LA') #converts to LA colorspace, which is in grayscale with a transparent channel
-        datas = converted.getdata()        
+        datas = img.getdata()        
         newData = []
         for item in datas:
-            newData.append((0, 255-item[0])) #pixel conversion
-        converted.putdata(newData)
-        return converted
-
+            newData.append((0, 0, 0, 255-int((item[0] * 299/1000 + item[1] * 587/1000 + item[2] * 114/1000)))) #pixel conversion
+        img.putdata(newData)
+        return img
     def nohue(self, img):
-        converted = img.convert('RGBA')
-        datas = converted.getdata()        
+        datas = img.getdata()        
         newData = []
         for item in datas:
             newData.append((0,0,0,255 - max(item[0], item[1], item[2]))) #pixel conversion, removes the color channels and creates a key 
-        converted.putdata(newData)
-        return converted
+        img.putdata(newData)
+        return img
 
 root = tk.Tk()
 BnT(root)
